@@ -8,10 +8,6 @@ Page {
     // The effective value will be restricted by ApplicationWindow.allowedOrientations
     allowedOrientations: Orientation.Portrait
 
-    onVisibleChanged: {
-        jupii.ping()
-    }
-
     SilicaWebView {
         id: webView
         property string video_id: ""

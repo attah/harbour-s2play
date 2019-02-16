@@ -9,6 +9,11 @@ Item {
         jupiiPing.call('Ping', [], function() {found = true}, function() {found = false});
     }
 
+    onVisibleChanged: {
+        if (visible)
+            ping()
+    }
+
     DBusInterface {
         id: jupiiPing
         service: 'org.jupii'
