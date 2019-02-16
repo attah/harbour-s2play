@@ -7,23 +7,25 @@ Page {
     allowedOrientations: Orientation.Portrait
 
     SilicaFlickable {
+        anchors.fill: parent
         width: parent.width
-
-        PageHeader {
-            id: header
-            title: qsTr("Inställningar")
-        }
+        contentHeight: settingsColumn.height
 
         Column {
             id: settingsColumn
-            anchors.top: header.bottom
             width: parent.width
+            spacing: Theme.paddingLarge
+
+            PageHeader {
+                id: header
+                title: qsTr("Inställningar")
+            }
 
             Row {
-                width: parent.width
+                x: Theme.paddingLarge
+                width: parent.width - 2*Theme.paddingLarge
                 Label {
                     width: parent.width
-                    padding: Theme.paddingLarge
                     wrapMode: Text.WordWrap
                     text: "Standard är dynamisk bitrate 240Kb/s - 3Mb/s, " +
                           "här kan du begränsa vilken/vilka som används"
@@ -31,10 +33,10 @@ Page {
             }
 
             Row {
-                width: parent.width
+                x: Theme.paddingLarge
+                width: parent.width - 2*Theme.paddingLarge
                 Label {
                     width: parent.width
-                    padding: Theme.paddingLarge
                     wrapMode: Text.WordWrap
                     text: "Vanliga bitrates:\n" +
                           "288p: 240~750 Kb/s\n" +
@@ -44,10 +46,10 @@ Page {
             }
 
             Row {
-                width: parent.width
+                x: Theme.paddingLarge
+                width: parent.width - 2*Theme.paddingLarge
                 Label {
                     width: parent.width
-                    padding: Theme.paddingLarge
                     wrapMode: Text.WordWrap
                     text: "SVTplay föreslår en initial-bitrate beroende på innehåll, " +
                           "den verkar resultera i 432p för program med högre produktionsvärde, och 288p ~700Kb/s för t.ex. nyheter"
@@ -56,7 +58,7 @@ Page {
 
             Row {
                 id: defaultRow
-                width: parent.width
+                width: parent.width - 2*Theme.paddingLarge
                 Switch {
                     id: defaultSwitch
                     checked: settings.getValue("use_default_rate", 0)
@@ -75,14 +77,13 @@ Page {
             Row {
                 id: minRow
                 visible: !defaultSwitch.checked
-                width: parent.width
+                x: Theme.paddingLarge
+                width: parent.width - 2*Theme.paddingLarge
                 Label {
-                    padding: Theme.paddingLarge
                     text: qsTr("Lägsta bitrate:")
                 }
                 Label {
                     color: Theme.highlightColor
-                    padding: Theme.paddingLarge
                     text: minSlider.value === minSlider.minimumValue ? "-" : minSlider.value
                 }
             }
@@ -90,7 +91,8 @@ Page {
             Row {
                 id: minSliderRow
                 visible: !defaultSwitch.checked
-                width: parent.width
+                x: Theme.paddingLarge
+                width: parent.width - 2*Theme.paddingLarge
                 Slider {
                     id: minSlider
 
@@ -117,14 +119,13 @@ Page {
             Row {
                 id: maxRow
                 visible: !defaultSwitch.checked
-                width: parent.width
+                x: Theme.paddingLarge
+                width: parent.width - 2*Theme.paddingLarge
                 Label {
-                    padding: Theme.paddingLarge
                     text: qsTr("Högsta bitrate:")
                 }
                 Label {
                     color: Theme.highlightColor
-                    padding: Theme.paddingLarge
                     text: maxSlider.value === maxSlider.maximumValue ? "-" : maxSlider.value
                 }
             }
@@ -132,7 +133,8 @@ Page {
             Row {
                 id: maxSliderRow
                 visible: !defaultSwitch.checked
-                width: parent.width
+                x: Theme.paddingLarge
+                width: parent.width - 2*Theme.paddingLarge
                 Slider {
                     id: maxSlider
 
@@ -155,7 +157,6 @@ Page {
                     }
                 }
             }
-
         }
     }
 }
