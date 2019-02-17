@@ -1,40 +1,28 @@
 import QtQuick 2.0
 import Nemo.DBus 2.0
 
-Item {
+DBusInterface {
+    id: jupiiPlayer
+
+    service: 'org.jupii'
+    iface: 'org.jupii.Player'
+    path: '/'
 
     property bool found: false
 
     function ping() {
-        jupiiPing.call('Ping', [], function() {found = true}, function() {found = false});
-    }
-
-    onVisibleChanged: {
-        if (visible)
-            ping()
-    }
-
-    DBusInterface {
-        id: jupiiPing
-        service: 'org.jupii'
-        iface: 'org.freedesktop.DBus.Peer'
-        path: '/'
-
+        found = (getProperty('canControl') === true)
     }
 
     function addUrlOnceAndPlay(url, title) {
         jupiiPlayer.call('addUrlOnceAndPlay', [url, title])
     }
 
+    signalsEnabled: true
 
-    DBusInterface {
-        id: jupiiPlayer
-
-        service: 'org.jupii'
-        iface: 'org.jupii.Player'
-        path: '/'
-
-        signalsEnabled: true
-
+    function canControlPropertyChanged(value) {
+        console.log("canControlPropertyChanged: " + value)
+        found = value
     }
 }
+
