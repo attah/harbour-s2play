@@ -153,7 +153,11 @@ Page {
         IconButton {
             id: previous
             icon.source: "image://theme/icon-m-back"
-            onClicked: webView.goBack()
+            onClicked: {
+                video_id = "" // Often when going back, onUrlChanged doesn't seem to trigger
+                streamData = false
+                webView.goBack()
+            }
             width: parent.width / 3
             anchors.verticalCenter: parent.verticalCenter
         }
