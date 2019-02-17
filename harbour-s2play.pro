@@ -16,6 +16,7 @@ CONFIG += sailfishapp_qml
 
 DISTFILES += qml/harbour-s2play.qml \
     qml/cover/CoverPage.qml \
+    qml/cover/*.svg \
     qml/pages/*.qml \
     rpm/harbour-s2play.changes.in \
     rpm/harbour-s2play.changes.run.in \
