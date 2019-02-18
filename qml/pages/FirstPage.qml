@@ -81,9 +81,10 @@ Page {
             console.log(loading, loadProgress, _page, _webPage);
         }
         onUrlChanged: {
-            console.log(url)
-            video_id = ""
-            streamData = false
+            console.log(url,video_id);
+            video_id = "";
+            console.log(video_id);
+            streamData = false;
         }
         Component.onCompleted: {
             url = "http://svtplay.se"
@@ -152,9 +153,10 @@ Page {
         height: 200
         IconButton {
             id: previous
+            enabled: webView.canGoBack
             icon.source: "image://theme/icon-m-back"
             onClicked: {
-                video_id = "" // Often when going back, onUrlChanged doesn't seem to trigger
+                // Often when going back, onUrlChanged doesn't seem to trigger
                 streamData = false
                 webView.goBack()
             }
