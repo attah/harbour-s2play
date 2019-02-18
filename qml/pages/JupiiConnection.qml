@@ -11,16 +11,16 @@ Item {
         found = (jupiiPlayer.getProperty('canControl') === true)
     }
 
+    function addUrlOnceAndPlay(url, title) {
+        jupiiPlayer.call('addUrlOnceAndPlay', [url, title])
+    }
+
     DBusInterface {
         id: jupiiPlayer
 
         service: 'org.jupii'
         iface: 'org.jupii.Player'
         path: '/'
-
-        function addUrlOnceAndPlay(url, title) {
-            jupiiPlayer.call('addUrlOnceAndPlay', [url, title])
-        }
 
     }
 
