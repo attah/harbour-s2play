@@ -87,7 +87,7 @@ Page {
             color: "black"
             opacity: 0.7
             height: subLabel.implicitHeight
-            width: subLabel.text == "" ? 0 : subLabel.implicitWidth + Theme.paddingSmall //Don't pad empty string
+            width: subLabel.text == "" ? 0 : subLabel.implicitWidth + Theme.paddingMedium //Don't pad empty string
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: controlsRect.visible ? controlsRect.top : parent.bottom
             anchors.bottomMargin: Theme.paddingLarge
@@ -196,6 +196,7 @@ Page {
                         icon.source: "image://theme/icon-m-previous"
                         onClicked: player.goBackward()
                         width: parent.width / 5
+                        anchors.verticalCenter: parent.verticalCenter
                     }
 
 
@@ -228,15 +229,15 @@ Page {
             Label {
                 anchors.top: parent.top
                 anchors.topMargin: progressSlider.implicitHeight*0.8
-                anchors.left: parent.left
-                anchors.leftMargin: Theme.paddingLarge
+                anchors.horizontalCenter: parent.left
+                anchors.horizontalCenterOffset: parent.width/10
                 text: player.humanPosition
             }
             Label {
                 anchors.top: parent.top
                 anchors.topMargin: progressSlider.implicitHeight*0.8
-                anchors.right: parent.right
-                anchors.rightMargin: Theme.paddingLarge
+                anchors.horizontalCenter: parent.right
+                anchors.horizontalCenterOffset: -parent.width/10
                 text: player.humanDuration
             }
         }
