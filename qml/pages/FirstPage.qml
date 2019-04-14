@@ -192,8 +192,7 @@ Page {
             enabled: jupii.found && streamData
             icon.source: "icon-m-device.png"
             onClicked: {
-                doHls(function(url, title, _subs) {jupii.addUrlOnceAndPlay(url, title);
-                                            Qt.openUrlExternally(Qt.resolvedUrl("/usr/share/applications/harbour-jupii.desktop"))})
+                doHls(function(url, title, _subs) {jupii.addUrlOnceAndPlay(url, title)})
             }
             width: parent.width / 3
             anchors.verticalCenter: parent.verticalCenter
