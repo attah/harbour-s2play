@@ -65,14 +65,14 @@ Page {
         ]
 
         experimental.onMessageReceived: {
-            console.log(JSON.stringify(message));
-            console.log(message.data);
+//            console.log(JSON.stringify(message));
+//            console.log(message.data);
             var data = JSON.parse(message.data);
             if (data.type === "video_id") {
                 video_id = data.id;
             }
             else if (data.type === "playable_media") {
-                console.log(data.streams.episodeTitle);
+                console.log("playable",data.streams.episodeTitle);
                 streamData = data.streams;
                 console.log(JSON.stringify(streamData));
             }
@@ -104,13 +104,24 @@ Page {
                     if (streamData.episodeTitle) {
                         title = title+" - "+streamData.episodeTitle
                     }
-                    success(url, title)
+                    break;
                 }
                 else {
-                    notifier.notify("Inställningar hindrar uppspelning")
+                    notifier.notify("Inställningar hindrar uppspelning");
+                    return;
                 }
             }
         }
+        for(var j in streamData.subtitleReferences) {
+            console.log(streamData.subtitleReferences[j].format,streamData.subtitleReferences[j].url )
+            if(streamData.subtitleReferences[j].format === "websrt") {
+                console.log("found srt",streamData.subtitleReferences[j].url);
+                var subs = streamData.subtitleReferences[j].url;
+                    break;
+            }
+        }
+        if(url)
+            success(url, title, subs)
     }
 
     function applyRateLimits(url) {
@@ -170,7 +181,7 @@ Page {
             icon.source: "image://theme/icon-l-play"
             enabled: streamData
             onClicked: {
-                doHls(function(url, title) {pageStack.push(Qt.resolvedUrl("PlayPage.qml"), {source: url, title: title});})
+                doHls(function(url, title, subs) {pageStack.push(Qt.resolvedUrl("PlayPage.qml"), {source: url, title: title, subtitleurl: subs});})
             }
             width: parent.width / 3
             anchors.verticalCenter: parent.verticalCenter
@@ -181,7 +192,7 @@ Page {
             enabled: jupii.found && streamData
             icon.source: "icon-m-device.png"
             onClicked: {
-                doHls(function(url, title) {jupii.addUrlOnceAndPlay(url, title);
+                doHls(function(url, title, _subs) {jupii.addUrlOnceAndPlay(url, title);
                                             Qt.openUrlExternally(Qt.resolvedUrl("/usr/share/applications/harbour-jupii.desktop"))})
             }
             width: parent.width / 3
