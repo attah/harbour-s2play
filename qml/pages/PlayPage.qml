@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtMultimedia 5.6
 import Sailfish.Silica 1.0
-import Nemo.DBus 2.0
+import Nemo.KeepAlive 1.2
 import "SrtParser.js" as SrtParser
 
 Page {
@@ -27,20 +27,9 @@ Page {
         console.log("playing", source)
     }
 
-    Component.onDestruction: {
-        console.log("un-keepalive")
-        keepalive.call('req_display_cancel_blanking_pause')
-    }
-
-    Timer {
-        interval: 50000
-        running: true
-        repeat: true
-        triggeredOnStart: true
-        onTriggered: {
-            console.log("keepalive")
-            keepalive.call('req_display_blanking_pause')
-        }
+    DisplayBlanking {
+        id: displayBlanking
+        preventBlanking: player.playbackState === MediaPlayer.PlayingState
     }
 
     Rectangle {

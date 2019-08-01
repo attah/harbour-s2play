@@ -1,7 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.LocalStorage 2.0
-import Nemo.DBus 2.0
 import Nemo.Notifications 1.0
 import "pages"
 
@@ -48,15 +47,6 @@ ApplicationWindow
                 tx.executeSql('DELETE FROM RateSettings WHERE id=?', [id] );
             });
         }
-    }
-
-    DBusInterface {
-        id: keepalive
-
-        bus: DBusInterface.SystemBus
-        service: 'com.nokia.mce'
-        iface: 'com.nokia.mce.request'
-        path: '/com/nokia/mce/request'
     }
 
     Notification {
