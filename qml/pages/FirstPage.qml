@@ -94,9 +94,11 @@ Page {
     property var streamData: false
 
     function doHls(success) {
+        var format = settings.getValue("use_low_rate") === 1 ? "hls-lb" : "hls"
+
         for(var i in streamData.videoReferences) {
             console.log(streamData.videoReferences[i].format,streamData.videoReferences[i].url )
-            if(streamData.videoReferences[i].format === "hls") {
+            if(streamData.videoReferences[i].format === format) {
                 console.log("found",streamData.videoReferences[i].url);
                 var url = applyRateLimits(streamData.videoReferences[i].url);
                 if(url) {

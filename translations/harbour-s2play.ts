@@ -22,15 +22,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Använd föreslagen bitrate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lägsta bitrate:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Högsta bitrate:</source>
+        <source>Begraänsa till max 750Kb/s</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
