@@ -48,7 +48,7 @@ Page {
                 }
                 Label {
                     anchors.verticalCenter: parent.verticalCenter
-                    text: qsTr("Begraänsa till max 750Kb/s")
+                    text: qsTr("Begränsa till max 750Kb/s")
                 }
             }
         }

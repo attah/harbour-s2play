@@ -22,7 +22,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Begraänsa till max 750Kb/s</source>
+        <source>Begränsa till max 750Kb/s</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
