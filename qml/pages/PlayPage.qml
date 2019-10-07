@@ -12,6 +12,7 @@ Page {
 
     showNavigationIndicator: false
     navigationStyle: PageNavigation.Vertical
+    property string video_id
     property string source
     property string title
     property string subtitleurl
@@ -48,7 +49,11 @@ Page {
                 subContainer.reset()
                 seek(position - 10000 > 0 ? position - 10000 : 0)
             }
-            autoPlay: true
+            Component.onCompleted:
+            {
+                player.seek(settings.getProgress(video_id))
+                player.play()
+            }
 
             readonly property string humanDuration: duration >= 60*60*1000 ? Qt.formatTime(new Date(0, 0, 0, 0, 0, 0, duration), "hh:mm:ss")
                                                                     : Qt.formatTime(new Date(0, 0, 0, 0, 0, 0, duration), "mm:ss")
@@ -56,6 +61,24 @@ Page {
 
             readonly property string humanPosition: duration >= 60*60*1000 ? Qt.formatTime(new Date(0, 0, 0, 0, 0, 0, position), "hh:mm:ss")
                                                                     : Qt.formatTime(new Date(0, 0, 0, 0, 0, 0, position), "mm:ss")
+
+            onPlaybackStateChanged: {
+                console.log("playbackstate", playbackState);
+                console.log("sp", position, duration);
+
+                if (playbackState !== MediaPlayer.PlayingState) {
+                    //           Invalid           Live             For good measure
+                    if(duration !== -1 && duration !== 0 && position !== 0) {
+                        if (position > 5000) {
+                            settings.setProgress(video_id, position)
+                        }
+                        if (position > (duration-5000) || position <= 5000) {
+                            console.log("rp",position);
+                            settings.removeProgress(video_id)
+                        }
+                    }
+                }
+            }
         }
 
         VideoOutput {

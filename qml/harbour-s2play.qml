@@ -19,6 +19,7 @@ ApplicationWindow
             db_conn.transaction(function (tx) {
 //                tx.executeSql('DROP TABLE IF EXISTS RateSettings');
                 tx.executeSql('CREATE TABLE IF NOT EXISTS RateSettings (id STRING UNIQUE, value INTEGER)');
+                tx.executeSql('CREATE TABLE IF NOT EXISTS Progress (id STRING UNIQUE, position INT)');
             });
         }
 
@@ -47,6 +48,32 @@ ApplicationWindow
                 tx.executeSql('DELETE FROM RateSettings WHERE id=?', [id] );
             });
         }
+
+        // --- Not quite settings ----
+
+        function setProgress(id, position) {
+            console.log("setprog", id, position);
+            db_conn.transaction(function (tx) {
+                tx.executeSql('REPLACE INTO Progress VALUES(?, ?)', [id, position] );
+            });
+        }
+        function getProgress(id) {
+            var position = 0
+            db_conn.transaction(function (tx) {
+                var res = tx.executeSql('SELECT position FROM Progress WHERE id=?', [id] );
+                console.log("prog", res.rows.length !== 0, JSON.stringify(res));
+                if(res.rows.length !== 0)
+                    position = res.rows[0].position;
+            });
+            return position;
+        }
+        function removeProgress(id) {
+            console.log("remprog", id);
+            db_conn.transaction(function (tx) {
+                tx.executeSql('DELETE FROM Progress WHERE id=?', [id] );
+            });
+        }
+
     }
 
     Notification {

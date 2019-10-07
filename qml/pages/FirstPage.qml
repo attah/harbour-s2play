@@ -183,7 +183,7 @@ Page {
             icon.source: "image://theme/icon-l-play"
             enabled: streamData
             onClicked: {
-                doHls(function(url, title, subs) {pageStack.push(Qt.resolvedUrl("PlayPage.qml"), {source: url, title: title, subtitleurl: subs});})
+                doHls(function(url, title, subs) {pageStack.push(Qt.resolvedUrl("PlayPage.qml"), {video_id: webView.video_id, source: url, title: title, subtitleurl: subs});})
             }
             width: parent.width / 3
             anchors.verticalCenter: parent.verticalCenter
