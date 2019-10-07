@@ -8,7 +8,7 @@ Page {
     id: page
 
     // The effective value will be restricted by ApplicationWindow.allowedOrientations
-    allowedOrientations: Orientation.Landscape
+    allowedOrientations: Orientation.LandscapeMask
 
     showNavigationIndicator: false
     navigationStyle: PageNavigation.Vertical
