@@ -10,13 +10,7 @@ window.SvtPlay_MessageListenerObject.prototype.onMessage = function(message) {
     {
 //        navigator.qt.postMessage(JSON.stringify({ "type": "button", "data":document.getElementsByClassName("play_video-area")[0].innerHTML}));
 
-        var svp_video = document.getElementsByClassName("svp_video")[0];
-        for(k in svp_video) {
-            navigator.qt.postMessage(JSON.stringify({ "type": "docload3"}));
-            if (k.includes("__reactEventHandler")) {
-                this.getStream(svp_video[k]["data-video-id"]);
-            }
-        }
+          this.getStream(data.video_id);
     }
 };
 
@@ -37,10 +31,10 @@ window.onload = function() {
 }
 
 window.addEventListener("DOMNodeInserted", function() {
-    var svp_video = document.getElementsByClassName("svp_video")[0];
-    for(k in svp_video) {
-        if (k.includes("__reactEventHandler")) {
-            navigator.qt.postMessage(JSON.stringify({ "type": "video_id", "id":svp_video[k]["data-video-id"]}));
+    var videos = document.getElementsByTagName("video");
+    for(k in videos) {
+        if (videos[k].getAttribute("data-video-id") != null) {
+            navigator.qt.postMessage(JSON.stringify({ "type": "video_id", "id": videos[k].getAttribute("data-video-id")}));
         }
     };
     var play_button = document.getElementsByClassName("play_light-button")[0].onclick = function() {navigator.qt.postMessage(JSON.stringify({ "type": "boooom"}));};
@@ -49,8 +43,6 @@ window.addEventListener("DOMNodeInserted", function() {
         navigator.qt.postMessage(JSON.stringify(data));
     }
 });
-
-
 
 var viewport = document.querySelector("meta[name='viewport']");
 

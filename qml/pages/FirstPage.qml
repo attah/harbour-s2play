@@ -15,7 +15,7 @@ Page {
         onVideo_idChanged: {
             if (video_id !== "") {
                 console.log("idc", video_id)
-                webView.postMessage("get", { "scale": 0 });
+                webView.postMessage("get", { "video_id": video_id });
                 jupii.ping()
             }
         }
