@@ -260,6 +260,9 @@ Page {
                         icon.source: "image://theme/icon-m-font-size"
                         onClicked: subContainer.toggleVisible()
                         highlighted: subContainer.visible
+                        enabled: subContainer.subs ? true : false
+                        icon.visible: enabled
+
                     }
                 }
             }
