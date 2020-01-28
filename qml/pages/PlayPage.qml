@@ -90,13 +90,19 @@ Page {
                         settings.removeProgress(video_id)
                     }
                 }
+
             }
         }
 
         VideoOutput {
             id: videoOutput
             source: player
-            anchors.fill: parent
+
+            property bool zoomed: false
+
+            anchors.centerIn: parent
+            height: zoomed ? parent.width*(9/16) : parent.height
+            width: parent.width
 
         }
         Timer {
@@ -211,7 +217,14 @@ Page {
                     height: play.height + 2*Theme.paddingLarge
 
                     IconButton {
+                        id: zoomIcon
                         width: parent.width / 5
+                        anchors.verticalCenter: parent.verticalCenter
+                        icon.source: "image://theme/icon-m-scale"
+                        enabled: Screen.width*2 <= Screen.height
+                        onClicked: videoOutput.zoomed = !videoOutput.zoomed
+                        icon.visible: enabled
+                        icon.highlighted: videoOutput.zoomed
 
                     }
 
