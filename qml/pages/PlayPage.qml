@@ -17,6 +17,13 @@ Page {
     property string title
     property string subtitleurl
 
+    onStatusChanged: {
+        if(status == PageStatus.Deactivating)
+        {
+            player.maybeSaveProgress()
+        }
+    }
+
     onSubtitleurlChanged: {
         if(subtitleurl)
             getSubs(subtitleurl)
@@ -63,19 +70,24 @@ Page {
                                                                     : Qt.formatTime(new Date(0, 0, 0, 0, 0, 0, position), "mm:ss")
 
             onPlaybackStateChanged: {
+                if (playbackState !== MediaPlayer.PlayingState)
+                {
+                    maybeSaveProgress()
+                }
+            }
+
+
+            function maybeSaveProgress() {
                 console.log("playbackstate", playbackState);
                 console.log("sp", position, duration);
-
-                if (playbackState !== MediaPlayer.PlayingState) {
-                    //           Invalid           Live             For good measure
-                    if(duration !== -1 && duration !== 0 && position !== 0) {
-                        if (position > 5000) {
-                            settings.setProgress(video_id, position)
-                        }
-                        if (position > (duration-5000) || position <= 5000) {
-                            console.log("rp",position);
-                            settings.removeProgress(video_id)
-                        }
+                //           Invalid           Live             For good measure
+                if(duration !== -1 && duration !== 0 && position !== 0) {
+                    if (position > 5000) {
+                        settings.setProgress(video_id, position)
+                    }
+                    if (position > (duration-5000) || position <= 5000) {
+                        console.log("rp",position);
+                        settings.removeProgress(video_id)
                     }
                 }
             }
