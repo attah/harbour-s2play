@@ -13,7 +13,7 @@ Name:       harbour-s2play
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    S''Play (S-bis-Play)
-Version:    0.2.3
+Version:    0.3
 Release:    1
 Group:      Qt/Qt
 License:    LICENSE
