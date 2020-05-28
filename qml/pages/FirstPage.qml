@@ -15,7 +15,18 @@ Page {
         onVideo_idChanged: {
             if (video_id !== "") {
                 console.log("idc", video_id)
-                webView.postMessage("get", { "video_id": video_id });
+                var xhr = new XMLHttpRequest;
+                xhr.onreadystatechange = (function(myxhr) {
+                    return function() {
+                        if(myxhr.readyState === 4)
+                        {
+                            console.log("woop", myxhr.responseText)
+                            streamData = JSON.parse(myxhr.responseText)
+                        }
+                    }
+                })(xhr);
+                xhr.open('GET', "http://api.svt.se/video/"+video_id, true);
+                xhr.send('');
                 jupii.ping()
             }
         }
@@ -27,11 +38,6 @@ Page {
                 text: qsTr("Inställningar")
                 onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
             }
-        }
-
-        function postMessage(message, data) {
-            console.log("posting", message, data)
-            experimental.postMessage(JSON.stringify({ "type": message, "data": data }));
         }
 
         anchors {
@@ -66,15 +72,10 @@ Page {
 
         experimental.onMessageReceived: {
 //            console.log(JSON.stringify(message));
-//            console.log(message.data);
+            console.log(message.data);
             var data = JSON.parse(message.data);
             if (data.type === "video_id") {
                 video_id = data.id;
-            }
-            else if (data.type === "playable_media") {
-                console.log("playable",data.streams.episodeTitle);
-                streamData = data.streams;
-                console.log(JSON.stringify(streamData));
             }
         }
         onLoadingChanged: {
