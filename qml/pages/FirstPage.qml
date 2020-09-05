@@ -122,6 +122,11 @@ Page {
                 var subs = streamData.subtitleReferences[j].url;
                     break;
             }
+            else if(streamData.subtitleReferences[j].format === "webvtt") {
+                console.log("found vtt",streamData.subtitleReferences[j].url);
+                var subs = streamData.subtitleReferences[j].url;
+                    break;
+            }
         }
         if(url)
             success(url, title, subs)

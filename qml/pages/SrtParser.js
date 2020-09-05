@@ -37,12 +37,23 @@ function parse(data) {
     lines = data.split( /(?:\r\n|\r|\n)/gm );
     endIdx = lastNonEmptyLine( lines ) + 1;
 
-    for( i=0; i < endIdx; i++ ) {
+    var vtt = false;
+    var i = 0;
+    if(lines[i].indexOf("WEBVTT") != -1)
+    {
+        i++;
+        vtt=true;
+    }
+
+    for(; i < endIdx; i++ ) {
         sub = {};
         text = [];
 
         i = nextNonEmptyLine( lines, i );
-        sub.id = parseInt( lines[i++], 10 );
+        if(!vtt)
+        {
+            sub.id = parseInt( lines[i++], 10 );
+        }
 
         // Split on '-->' delimiter, trimming spaces as well
         time = lines[i++].split( /[\t ]*-->[\t ]*/ );
