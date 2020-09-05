@@ -13,17 +13,8 @@ window.onload = function() {
 }
 
 window.addEventListener("DOMNodeInserted", function() {
-    var videos = document.getElementsByTagName("video");
-    for(k in videos) {
-        if (videos[k].getAttribute("data-video-id") != null) {
-            navigator.qt.postMessage(JSON.stringify({ "type": "video_id", "id": videos[k].getAttribute("data-video-id")}));
-        }
-    };
-    var play_button = document.getElementsByClassName("play_light-button")[0].onclick = function() {navigator.qt.postMessage(JSON.stringify({ "type": "boooom"}));};
-    svp_video.play = function() {
-        var data = { type: "tagoverrider_play", data: { url: (this.src || this.getAttribute("src")) } };
-        navigator.qt.postMessage(JSON.stringify(data));
-    }
+    var episodeId = document.getElementsByClassName("is-selected")[0].getAttribute("data-id").substr("list-element-".length);
+    navigator.qt.postMessage(JSON.stringify({ "type": "video_id", "id": episodeId+"A"})); // +A because reasons
 });
 
 var viewport = document.querySelector("meta[name='viewport']");

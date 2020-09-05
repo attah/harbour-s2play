@@ -25,7 +25,7 @@ Page {
                         }
                     }
                 })(xhr);
-                xhr.open('GET', "http://api.svt.se/video/"+video_id, true);
+                xhr.open('GET', "http://api.svt.se/videoplayer-api/video/"+video_id, true);
                 xhr.send('');
                 jupii.ping()
             }
@@ -72,7 +72,7 @@ Page {
 
         experimental.onMessageReceived: {
 //            console.log(JSON.stringify(message));
-            console.log(message.data);
+            console.log("message:", message.data);
             var data = JSON.parse(message.data);
             if (data.type === "video_id") {
                 video_id = data.id;
