@@ -3,8 +3,10 @@ window.SvtPlay_MessageListenerObject = function() {
 };
 
 window.SvtPlay_MessageListenerObject.prototype.onMessage = function(message) {
-    var obj = JSON.parse(message.data);
-    var data = obj.data;
+//    var obj = JSON.parse(message.data);
+//    var data = obj.data;
+    var episodeId = document.getElementsByClassName("is-selected")[0].getAttribute("data-id").substr("list-element-".length);
+    navigator.qt.postMessage(JSON.stringify({ "type": "video_id", "id": episodeId+"A"})); // +A because reasons
 
 };
 
@@ -12,10 +14,6 @@ window.SvtPlay_MessageListener = new window.SvtPlay_MessageListenerObject();
 window.onload = function() {
 }
 
-window.addEventListener("DOMNodeInserted", function() {
-    var episodeId = document.getElementsByClassName("is-selected")[0].getAttribute("data-id").substr("list-element-".length);
-    navigator.qt.postMessage(JSON.stringify({ "type": "video_id", "id": episodeId+"A"})); // +A because reasons
-});
 
 var viewport = document.querySelector("meta[name='viewport']");
 

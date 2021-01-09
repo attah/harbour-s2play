@@ -90,6 +90,15 @@ Page {
         Component.onCompleted: {
             url = "http://svtplay.se"
         }
+
+        Timer {
+            id: gettimer
+            interval: 1000
+            running: page.visible
+            repeat: true
+
+            onTriggered: webView.experimental.postMessage({"get":"it"})
+        }
     }
 
     property var streamData: false
